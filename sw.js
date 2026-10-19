@@ -1,7 +1,7 @@
 // IPPS - service worker. Rede primeiro: o site actualizado aparece sempre que há internet;
 // sem internet, abre a última versão guardada.
-const V = 'ipps-v1';
-const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
+const V = 'ipps-v2';
+const CORE = ['./', 'index.html', 'privacidade.html', 'termos.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
@@ -18,12 +18,20 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const r = e.request;
   if (r.method !== 'GET') return;
-  if (new URL(r.url).origin !== location.origin) return;
+  const u = new URL(r.url);
+  if (u.origin !== location.origin) return;
   if (r.mode === 'navigate') {
     e.respondWith(
       fetch(r)
-        .then(res => { const cp = res.clone(); caches.open(V).then(c => c.put('index.html', cp)); return res; })
-        .catch(() => caches.match('index.html'))
+        .then(res => {
+          const a = res.clone(), b = res.clone();
+          caches.open(V).then(c => {
+            c.put(r, a);
+            if (u.pathname === '/' || u.pathname.endsWith('/index.html')) c.put('index.html', b);
+          });
+          return res;
+        })
+        .catch(() => caches.match(r).then(x => x || caches.match('index.html')))
     );
     return;
   }
