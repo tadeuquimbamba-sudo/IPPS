@@ -52,6 +52,6 @@ O script do AdSense está no `<head>` do `index.html`, e o `ads.txt` está na ra
 ## 📞 Desenvolvimento
 
 **Casi Art Soluções** — Malanje, Angola
-- **E-mail:** casiartsolucoes@gmail.com
+- **E-mail:** casiartsolucoes.ao@gmail.com
 - **WhatsApp:** +244 950 077 447
 - **Site:** [casiartsolucoes-ao.netlify.app](https://casiartsolucoes-ao.netlify.app)
