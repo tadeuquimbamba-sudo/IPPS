@@ -1,6 +1,6 @@
 // IPPS - service worker. Rede primeiro: o site actualizado aparece sempre que há internet;
 // sem internet, abre a última versão guardada.
-const V = 'ipps-v2';
+const V = 'ipps-v3';
 const CORE = ['./', 'index.html', 'privacidade.html', 'termos.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 
 self.addEventListener('install', e => {
